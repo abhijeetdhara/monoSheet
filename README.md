@@ -1,4 +1,4 @@
-# Gsheet 🔗 NetSuite integration
+# Gsheet 🔗 NetSuite Dataset integration
 
 
 ### Overview
