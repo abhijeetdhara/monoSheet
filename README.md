@@ -98,6 +98,7 @@ Add a secret named (e.g., netsuite\_tokens) with the following JSON format: 
 #### Add Appscript:
 *   Go to **Extensions > AppsScript**.
 *   Add the provided **[AppScript code](https://github.com/abhijeetdhara/gsheet_ns/blob/main/appScriptGSheetDataPull.gs)** for the integration.
+*   Add the **[jsrsasign](https://kjur.github.io/jsrsasign/jsrsasign-latest-all-min.js)** for the generating the signedJWT token.
 #### Set Script Properties:
 
 ```xml
