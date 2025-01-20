@@ -1,4 +1,4 @@
-# Gsheet 🔗 NetSuite Dataset integration
+# Gsheet 🔗 NetSuite dataset setup
 
 
 ### Overview
@@ -37,11 +37,10 @@ This documentation outlines the step-by-step setup for the GSheet-NetSuite integ
 *   Save the dataset and note the **Dataset ID** for each dataset.
 *   Assign the dataset access to the **NetSuite Integration Role** created for API access.
 *   Ensure that the role has permissions for:
-    *   Analytics.
-    *   RESTlet Execution.
-    *   Token-Based Authentication (OAuth2).
-
-#### Share Dataset with Integration Role:
+    *   SuiteAnalytic Workbook.
+    *   REST web services.
+    *   Login using access token [OAuth2.0] permission.
+*   Share Dataset with Integration Role.
 
 ---
 
@@ -49,12 +48,12 @@ This documentation outlines the step-by-step setup for the GSheet-NetSuite integ
 
 #### Metadata RESTlet Script:
 
-*   Write or upload the **metadata retrieval script** for datasets.
+*   Write or upload the **[metadata retrieval script](https://github.com/abhijeetdhara/gsheet_ns/blob/main/RS_getDatasetMetadata.js)** for datasets.
     *   Deploy the script via **Customization > Scripting > Scripts > New**.
 
 #### Data Pull RESTlet Script:
 
-*   Write or upload the **data retrieval script** for dataset analytics.
+*   Write or upload the **[data retrieval script](https://github.com/abhijeetdhara/gsheet_ns/blob/main/RS_getDataset.js)** for dataset analytics.
     *   Deploy this script similarly.
 
 #### Note Down Script IDs & Deployment IDs:
@@ -86,9 +85,7 @@ Add a secret named (e.g., netsuite\_tokens) with the following JSON format: 
 
 #### Grant Access to AppScript:
 
-*   Assign roles to the AppScript service account for accessing the secret:
-    *   Navigate to **IAM & Admin > Permissions**.
-    *   Add a new role: **Secret Manager Secret Accessor**.
+*   Assign users access to the secret.
 
 ---
 
@@ -98,20 +95,9 @@ Add a secret named (e.g., netsuite\_tokens) with the following JSON format: 
 
 *   Open Google Sheets and create a new workbook.
 *   Name the sheet (e.g., NetSuite Analytics).
-*   Go to **Extensions > Apps Script**.
-*   Paste the provided AppScript code for the integration.
-*   Navigate to **AppScript > Project Settings > Script Properties**.
-*   Add the following properties:
-*   Select **Deploy > Deploy as Web App**.
-*   Assign permissions for the script to access Google Sheets and Secret Manager.
-*   In the Google Sheet, create a new sheet named DatasetReference.
-*   Add two columns:
-    *   **Dataset ID**: Enter the dataset IDs created in NetSuite.
-    *   **Dataset Name**: Enter the corresponding dataset names.
-*   This design ensures that new datasets can be added dynamically without code changes.
-
-#### Add the AppScript:
-
+#### Add Appscript:
+*   Go to **Extensions > AppsScript**.
+*   Add the provided **[AppScript code](https://github.com/abhijeetdhara/gsheet_ns/blob/main/appScriptGSheetDataPull.gs)** for the integration.
 #### Set Script Properties:
 
 ```xml
@@ -122,13 +108,25 @@ dsDeployid
 accountId
 secretprojectid
 secretprojectname
-dsrefsheet  		//sheet name containing dataset ids & names
+dsrefsheet  		//sheet name containing dataset ids and names
 pagestoLoad
 ```
 
-#### Deploy the Script:
+#### Update the application.json with scopes:
+```javascript
+"oauthScopes": [
+    "https://www.googleapis.com/auth/script.external_request",
+    "https://www.googleapis.com/auth/cloud-platform",
+    "https://www.googleapis.com/auth/spreadsheets.currentonly"
+  ]
+```
 
 #### Prepare the Dataset Reference Sheet:
+*   In the Google Sheet, create a new sheet named **DS Reference**.
+*   Add two columns: 
+    *   Dataset ID: Enter the dataset IDs created in NetSuite.
+    *   Dataset Name: Enter the corresponding dataset names.
+*   This design ensures that new datasets can be added dynamically without code changes.
 
 ---
 
