@@ -134,6 +134,7 @@ pagestoLoad
 ### Limitations
 
 *   Datasets exceeding **10,000 rows** may face performance issues due to API response time and GSheet limitations. Optimize dataset size for efficiency.
+*   Datasets exceeding **50,000 rows** may be loaded partially & can get timedout.
 ---
 
 ### Third-Party Libraries
