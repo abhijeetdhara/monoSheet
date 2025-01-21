@@ -143,6 +143,6 @@ pagestoLoad
  
 ### Key Changes:
 *   [21/05/2025]
-- **Added folders to maintain files hierarchy**.
-- **Added a "Third-Party Libraries" section** to acknowledge the use of the MIT-licensed library.
-- Maintained the structure and clarity of your existing `README.md`.
+    *   **Added folders to maintain files hierarchy**.
+    *   **Added a "Third-Party Libraries" section** to acknowledge the use of the MIT-licensed library.
+    *   Maintained the structure and clarity of your existing `README.md`.
