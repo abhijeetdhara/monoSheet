@@ -98,7 +98,7 @@ Add a secret named (e.g., netsuite\_tokens) with the following JSON format: 
 #### Add Appscript:
 *   Go to **Extensions > AppsScript**.
 *   Add the provided **[AppScript code](https://github.com/abhijeetdhara/gsheet_ns/blob/main/Appscript%20Files/appScriptGSheetDataPull.gs)** for the integration.
-*   Add the **[jsrsasign](https://kjur.github.io/jsrsasign/jsrsasign-latest-all-min.js)** for the generating the signedJWT token.
+*   Add the library file **[jrassign-all-min 11.1.0.js](https://github.com/abhijeetdhara/gsheet_ns/blob/main/Appscript%20Files/jrassign-all-min%2011.1.0.js)** for the generating the signedJWT token. You can get the latest library version from this **[link](https://kjur.github.io/jsrsasign/jsrsasign-latest-all-min.js)**.
 #### Set Script Properties:
 
 ```xml
@@ -134,3 +134,15 @@ pagestoLoad
 ### Limitations
 
 *   Datasets exceeding **10,000 rows** may face performance issues due to API response time and GSheet limitations. Optimize dataset size for efficiency.
+---
+
+### Third-Party Libraries
+#### This project uses the following third-party libraries:
+*   [jsrsasign](https://kjur.github.io/jsrsasign/jsrsasign-latest-all-min.js): Licensed under the MIT License
+ ---
+ 
+### Key Changes:
+*   [21/05/2025]
+- **Added folders to maintain files hierarchy**.
+- **Added a "Third-Party Libraries" section** to acknowledge the use of the MIT-licensed library.
+- Maintained the structure and clarity of your existing `README.md`.
