@@ -48,12 +48,12 @@ This documentation outlines the step-by-step setup for the GSheet-NetSuite integ
 
 #### Metadata RESTlet Script:
 
-*   Write or upload the **[metadata retrieval script](https://github.com/abhijeetdhara/gsheet_ns/blob/main/RS_getDatasetMetadata.js)** for datasets.
+*   Write or upload the **[metadata retrieval script](https://github.com/abhijeetdhara/gsheet_ns/blob/main/SuiteScript%20Files/RS_getDatasetMetadata.js)** for datasets.
     *   Deploy the script via **Customization > Scripting > Scripts > New**.
 
 #### Data Pull RESTlet Script:
 
-*   Write or upload the **[data retrieval script](https://github.com/abhijeetdhara/gsheet_ns/blob/main/RS_getDataset.js)** for dataset analytics.
+*   Write or upload the **[data retrieval script](https://github.com/abhijeetdhara/gsheet_ns/blob/main/SuiteScript%20Files/RS_getDataset.js)** for dataset analytics.
     *   Deploy this script similarly.
 
 #### Note Down Script IDs & Deployment IDs:
@@ -97,7 +97,7 @@ Add a secret named (e.g., netsuite\_tokens) with the following JSON format: 
 *   Name the sheet (e.g., NetSuite Analytics).
 #### Add Appscript:
 *   Go to **Extensions > AppsScript**.
-*   Add the provided **[AppScript code](https://github.com/abhijeetdhara/gsheet_ns/blob/main/appScriptGSheetDataPull.gs)** for the integration.
+*   Add the provided **[AppScript code](https://github.com/abhijeetdhara/gsheet_ns/blob/main/Appscript%20Files/appScriptGSheetDataPull.gs)** for the integration.
 *   Add the **[jsrsasign](https://kjur.github.io/jsrsasign/jsrsasign-latest-all-min.js)** for the generating the signedJWT token.
 #### Set Script Properties:
 
