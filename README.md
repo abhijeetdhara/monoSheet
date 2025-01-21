@@ -138,7 +138,7 @@ pagestoLoad
 
 ### Third-Party Libraries
 #### This project uses the following third-party libraries:
-*   [jsrsasign](https://kjur.github.io/jsrsasign/): Licensed under the MIT License
+*   [jsrsasign](https://kjur.github.io/jsrsasign/): Maintained by **Kenji Urushima** & licensed under the **MIT License**
  ---
  
 ### Key Changes:
