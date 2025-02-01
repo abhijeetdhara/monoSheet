@@ -1,149 +1,182 @@
-# Gsheet 🔗 NetSuite dataset setup
+# Gsheet 🔗 NetSuite Integration [Public Beta]
 
+---
 
 ### Overview
 
-This documentation outlines the step-by-step setup for the GSheet-NetSuite integration to enable seamless analytics data retrieval.
+This repository provides a comprehensive solution to integrate NetSuite with Google Sheets using Google Apps Script and NetSuite RESTlet scripts. It enables users to fetch datasets and saved searches from NetSuite and populate them directly into Google Sheets for analysis and reporting. The solution leverages OAuth 2.0 authentication with JWT tokens for secure data transfer and includes caching mechanisms for optimized performance. A user-friendly HTML interface is provided for easy configuration of NetSuite credentials and report mappings.
 
 ---
 
-### 1\. Generate & Set Up OAuth2 Certificates in NetSuite
+### Table of Contents
 
-#### Create an Integration Record:
-
-*   Navigate to **Setup > Integration > Manage Integrations > New**.
-*   Fill in the required details:
-    *   Name: GSheet-NetSuite Integration.
-    *   Authentication: Enable **OAuth 2.0**.
-*   Save the integration record and note down the **Client ID** and **Client Secret**.
-
-#### Upload RSA Key for OAuth2:
-
-*   Generate an RSA Key Pair. Ensure the private key is securely stored.
-*   Upload the public key to the Integration record under **Keys**.
-
-#### Note the Certificate ID:
-
-*   After uploading the public key, note the **Certificate ID (kid)** assigned by NetSuite.
-
----
-
-### 2\. Create the Dataset and Share with Integration Role
-
-#### Create the Dataset:
-
-*   Go to **Analytics > Dataset Builder > New Dataset**.
-*   Create datasets for analytics (e.g., Sales Data, Employee Records).
-*   Save the dataset and note the **Dataset ID** for each dataset.
-*   Assign the dataset access to the **NetSuite Integration Role** created for API access.
-*   Ensure that the role has permissions for:
-    *   SuiteAnalytic Workbook.
-    *   REST web services.
-    *   Login using access token [OAuth2.0] permission.
-*   Share Dataset with Integration Role.
+1. [Prerequisites](#prerequisites)
+2. [Repository Structure](#repository-structure)
+3. [Setup and Configuration](#setup-and-configuration)
+   - [NetSuite Setup](#netsuite-setup)
+   - [Google Cloud Setup](#google-cloud-setup)
+   - [Google Sheets Setup](#google-sheets-setup)
+4. [Key Components](#key-components)
+   - [Google Apps Script](#google-apps-script)
+   - [NetSuite RESTlet Scripts](#netsuite-restlet-scripts)
+   - [HTML Interface](#html-interface)
+5. [OAuth Scopes](#oauth-scopes)
+6. [Error Handling](#error-handling)
+7. [Google Secret Manager Configuration](#google-secret-manager-configuration)
+8. [Third-Party Libraries](#third-party-libraries)
+9. [Key Changes](#key-changes)
 
 ---
 
-### 3\. Create & Deploy Analytics Scripts in NetSuite
+### Prerequisites
 
-#### Metadata RESTlet Script:
+1. **NetSuite Setup**:
+   - Ensure NetSuite RESTlet scripts are deployed and accessible.
+   - Obtain the following credentials:
+     - NetSuite Account ID
+     - OAuth 2.0 Client ID and Private Key
+     - Certificate ID (KID)
+     - Google Secret Manager project ID and secret details
 
-*   Write or upload the **[metadata retrieval script](https://github.com/abhijeetdhara/gsheet_ns/blob/main/SuiteScript%20Files/RS_getDatasetMetadata.js)** for datasets.
-    *   Deploy the script via **Customization > Scripting > Scripts > New**.
+2. **Google Cloud Setup**:
+   - Configure Google Secret Manager with NetSuite credentials.
 
-#### Data Pull RESTlet Script:
-
-*   Write or upload the **[data retrieval script](https://github.com/abhijeetdhara/gsheet_ns/blob/main/SuiteScript%20Files/RS_getDataset.js)** for dataset analytics.
-    *   Deploy this script similarly.
-
-#### Note Down Script IDs & Deployment IDs:
-
-*   After deploying the scripts, note the **Script ID** and **Deployment ID** for both scripts.
+3. **Google Sheets Setup**:
+   - Open a Google Sheet and add the provided script & HTML to the Apps Script editor.
 
 ---
 
-### 4\. Set Up Google Secret Manager for Tokens and Certificates
+### Repository Structure
 
-#### Access Google Cloud Secret Manager:
+```
+.
+├── Appscript Files
+│   ├── README.md
+│   ├── appScriptGSheetDataPull.gs
+│   ├── jrassign-all-min 11.1.0.js
+│   └── nsUiConfig.html
+├── SuiteScript Files
+│   ├── README.md
+│   ├── RS_getDataset.js
+│   └── RS_getDatasetMetadata.js
+├── README.md
+└── LICENSE
+```
 
-*   Open the [Google Cloud Console](https://console.cloud.google.com/).
-*   Enable **Secret Manager API** for your project.
+- **Appscript Files/**: Contains the Google Apps Script code for integration and the HTML configuration interface.
+- **SuiteScript Files/**: Contains the NetSuite RESTlet scripts for metadata retrieval and data fetching.
+- **README.md**: Documentation for setting up and using the integration.
+- **LICENSE**: License information for the repository.
 
-#### Create a Secret:
+---
 
-Go to **Secret Manager > Create Secret**.
+### Setup and Configuration
 
-Add a secret named (e.g., netsuite\_tokens) with the following JSON format: 
+#### NetSuite Setup
 
-```javascript
+1. Deploy the provided RESTlet scripts in NetSuite:
+   - `RS_getDatasetMetadata.js`: Fetches metadata about datasets and saved searches.
+   - `RS_getDataset.js`: Retrieves data from datasets and saved searches.
+
+2. Obtain the required OAuth credentials from your NetSuite account settings.
+
+#### Google Cloud Setup
+
+1. Configure Google Secret Manager to store NetSuite credentials in the specified format.
+
+#### Google Sheets Setup
+
+1. Open the Script Editor (`Extensions > Apps Script`) in your Google Sheet.
+2. Copy and paste the contents of `appScriptGSheetDataPull.gs` into the script editor.
+3. Add `nsUiConfig.html` as a new HTML file in the script editor.
+4. Save and close the script editor.
+
+---
+
+### Key Components
+
+#### Google Apps Script
+
+- **appScriptGSheetDataPull.gs**: Handles authentication, data fetching, caching, and UI generation within Google Sheets.
+- **Functions**:
+  - `onOpen()`: Initializes the custom menu in Google Sheets.
+  - `showConfigurationDialog()`: Opens the configuration UI.
+  - `getAccessTokenCached()`: Manages OAuth token retrieval and caching.
+  - `getData()`: Fetches data from NetSuite and publishes it to Google Sheets.
+
+#### NetSuite RESTlet Scripts
+
+- **RS_getDatasetMetadata.js**: Retrieves metadata about datasets and saved searches.
+- **RS_getDataset.js**: Fetches actual data from NetSuite based on user-defined parameters.
+
+#### HTML Interface
+
+- **nsUiConfig.html**: Provides a graphical interface for configuring NetSuite credentials and report mappings.
+  - **Functions**:
+    - `populateSecrets(data)`: Populates the secret configuration form.
+    - `populateReportMapping(data)`: Displays report mapping configurations.
+    - `saveSecrets()` / `saveMapping()`: Saves configurations to script properties.
+      
+      ![image](https://github.com/user-attachments/assets/726a2dde-19fd-4fcc-b1c1-c68b500378ca)
+
+
+---
+
+### OAuth Scopes
+
+Ensure the following OAuth scopes are enabled for the script to function correctly:
+
+```json
+"oauthScopes": [
+  "https://www.googleapis.com/auth/script.external_request",
+  "https://www.googleapis.com/auth/cloud-platform",
+  "https://www.googleapis.com/auth/spreadsheets.currentonly",
+  "https://www.googleapis.com/auth/userinfo.email",
+  "https://www.googleapis.com/auth/script.container.ui"
+]
+```
+
+---
+
+### Error Handling
+
+- Comprehensive `try-catch` blocks are implemented to handle potential errors.
+- Errors from NetSuite API and Google Secret Manager are logged using `Logger.log` and displayed via `ui.alert`.
+
+---
+
+### Google Secret Manager Configuration
+
+Ensure your Google Secret Manager stores the NetSuite configuration in the following JSON format:
+
+```json
 {
+  "pagestoload": "5",    // Minimum-0, Maximum-max concurrency limit of your NS account
+  "metadatascriptid": "NSMETADATASCRIPTID",
+  "metadatadeployid": "NSMETADATASCRIPTDEPLOYID",
+  "reportscriptid": "NSREPORTSCRIPTID",
+  "reportdeployid": "NSREPORTSCRIPTDEPLOYID",
   "kid": "OAUTH2_CERTIFICATE_ID",
   "clientid": "CLIENT_ID",
   "privatekey": "PRIVATE_CERTIFICATE"
 }
 ```
 
-#### Grant Access to AppScript:
-
-*   Assign users access to the secret.
-
 ---
 
-### 5\. Create a Blank Workbook & Deploy the AppScript
-
-#### Create a Google Sheet:
-
-*   Open Google Sheets and create a new workbook.
-*   Name the sheet (e.g., NetSuite Analytics).
-#### Add Appscript:
-*   Go to **Extensions > AppsScript**.
-*   Add the provided **[AppScript code](https://github.com/abhijeetdhara/gsheet_ns/blob/main/Appscript%20Files/appScriptGSheetDataPull.gs)** for the integration.
-*   Add the library file **[jrassign-all-min 11.1.0.js](https://github.com/abhijeetdhara/gsheet_ns/blob/main/Appscript%20Files/jrassign-all-min%2011.1.0.js)** for the generating the signedJWT token. You can get the latest library version from this **[link](https://kjur.github.io/jsrsasign/jsrsasign-latest-all-min.js)**.
-#### Set Script Properties:
-
-```xml
-metadataScriptId
-datasetScriptId
-metadataDeployid
-dsDeployid
-accountId
-secretprojectid
-secretprojectname
-dsrefsheet  		//sheet name containing dataset ids and names
-pagestoLoad
-```
-
-#### Update the application.json with scopes:
-```javascript
-"oauthScopes": [
-    "https://www.googleapis.com/auth/script.external_request",
-    "https://www.googleapis.com/auth/cloud-platform",
-    "https://www.googleapis.com/auth/spreadsheets.currentonly"
-  ]
-```
-
-#### Prepare the Dataset Reference Sheet:
-*   In the Google Sheet, create a new sheet named **DS Reference**.
-*   Add two columns: 
-    *   Dataset ID: Enter the dataset IDs created in NetSuite.
-    *   Dataset Name: Enter the corresponding dataset names.
-*   This design ensures that new datasets can be added dynamically without code changes.
-
----
-
-### Limitations
-
-*   Datasets exceeding **10,000 rows** may face performance issues due to API response time and GSheet limitations. Optimize dataset size for efficiency.
-*   Datasets exceeding **50,000 rows** may be loaded partially & can get timedout.
----
 
 ### Third-Party Libraries
-#### This project uses the following third-party libraries:
-*   [jsrsasign](https://kjur.github.io/jsrsasign/): Maintained by **Kenji Urushima** & licensed under the **MIT License**
+#### This repository is licensed under the MIT License and uses the following third-party libraries:
+*   [jsrsasign](https://kjur.github.io/jsrsasign/): Maintained by **Kenji Urushima**
  ---
  
 ### Key Changes:
-*   [21/05/2025]
+*   [21/01/2025]
     *   **Added folders to maintain files hierarchy**.
     *   **Added a "Third-Party Libraries" section** to acknowledge the use of the MIT-licensed library.
     *   Maintained the structure and clarity of `README.md`.
+*   [01/02/2025]
+    *   **Added support for Saved Searches**.
+    *   **Added support for Report grouping - allows users to group multiple reports so that they can be loaded in a single click**.
+    *   **Added UI config page to setup your integration and report mappings**.
+    *   **Added technical docs to each folders**.
