@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<!--
+MIT License
+
+Copyright (c) 2025 Abhijeet Dhara
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    /* Global body styling */
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 20px;
+      padding: 20px;
+      font-size: 13px;
+    }
+    /* Section container */
+    .section { margin-bottom: 20px; }
+    /* Header area (title + save button) */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .section-header h2 { margin: 0; font-size: 15px; }
+    /* Indentation for form/table content */
+    .section-content { margin-left: 2em; }
+    /* Horizontal line (divider) between sections */
+    .divider {
+      margin: 20px 0;
+      border: none;
+      border-top: 1px solid #ddd;
+    }
+    /* Form group styling */
+    .form-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .form-group label { width: 150px; font-weight: 600; }
+    .form-group input {
+      flex: 1;
+      padding: 6px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+    /* Table with black borders */
+    table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      margin-top: 5px;
+      font-size: 13px;
+      border: 1px solid #000;
+    }
+    th, td {
+      border: 1px solid #000;
+      padding: 4px;
+      text-align: left;
+      vertical-align: middle;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    th { background-color: #CCCCCC; font-weight: 600; }
+    /* Equal width for first 3 columns, fixed width for Action column */
+    th:nth-child(4), td:nth-child(4) { width: 130px; }
+    th:nth-child(1), td:nth-child(1),
+    th:nth-child(2), td:nth-child(2),
+    th:nth-child(3), td:nth-child(3) {
+      width: calc((100% - 130px) / 3);
+    }
+    /* Make table cells editable on focus */
+    td[contenteditable="true"]:focus { outline: 2px solid #007bff; }
+    /* Button styling */
+    .button {
+      padding: 6px 10px;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 5px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+    .button.green { background-color: #0F9D58; }
+    .button.green:hover { background-color: #0c7d43; }
+    .button.blue { background-color: #007bff; }
+    .button.blue:hover { background-color: #0056b3; }
+    .button.red { background-color: #d9534f; }
+    .button.red:hover { background-color: #b52b27; }
+    .button.grey { background-color: #6c757d; }
+    .button.grey:hover { background-color: #5a6268; }
+    .button:disabled { opacity: 0.6; cursor: not-allowed; }
+    /* Position the Add button at the bottom-right of the table section */
+    .mapping-actions { display: flex; justify-content: flex-end; margin-top: 10px; }
+    /* Action cell container for "Remove" and "Test" buttons */
+    .action-cell {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- The following variables will be replaced by Apps Script templating -->
+  <script>
+    var secretsData = <?= JSON.stringify(secretsData) ?>;
+    var menuData = <?= JSON.stringify(menuData) ?>;
+
+    window.onload = function() {
+      // Pass the injected objects directly (no JSON.parse required)
+      populateSecrets(JSON.parse(secretsData));
+      populateReportMapping(JSON.parse(menuData));
+    };
+
+    // Populate the Secret Manager fields from secretsData
+    function populateSecrets(data) {
+      if (!data) return;
+      if (data.nsaccountid)  document.getElementById('nsaccountid').value = data.nsaccountid;
+      if (data.secretprojectid)  document.getElementById('secretprojectid').value = data.secretprojectid;
+      if (data.secretprojectname) document.getElementById('secretprojectname').value = data.secretprojectname;
+      if (data.secretversion) document.getElementById('secretversion').value = data.secretversion;
+      validateSecretForm();
+    }
+
+    // Populate the Report Mapping table from the provided data array
+    function populateReportMapping(data) {
+      if (!Array.isArray(data)) return;
+      data.forEach(function(row) {
+        addRowWithData(row.reportid, row.reportname, row.groupname);
+      });
+    }
+  </script>
+
+  <!-- Secret Manager Configuration Section -->
+  <div class="section">
+    <div class="section-header">
+      <h2>Secret Manager configuration</h2>
+      <button type="button" class="button green" id="save-secret-button" onclick="saveSecrets()" disabled>
+        Save Secret
+      </button>
+    </div>
+    <div class="section-content">
+      <form id="secrets-form">
+        <div class="form-group">
+          <label for="nsaccountid">NetSuite Account ID</label>
+          <input type="text" id="nsaccountid" oninput="validateSecretForm()">
+        </div>
+        <div class="form-group">
+          <label for="secretprojectid">Secret Project ID</label>
+          <input type="text" id="secretprojectid" oninput="validateSecretForm()">
+        </div>
+        <div class="form-group">
+          <label for="secretprojectname">Secret Project Name</label>
+          <input type="text" id="secretprojectname" oninput="validateSecretForm()">
+        </div>
+        <div class="form-group">
+          <label for="secretversion">Secret Version</label>
+          <input type="text" id="secretversion" value="latest" oninput="validateSecretForm()">
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <hr class="divider">
+
+  <!-- Report Mapping Section -->
+  <div class="section">
+    <div class="section-header">
+      <h2>Report Mapping</h2>
+      <button type="button" class="button green" id="save-map-button" onclick="saveMapping()" disabled>
+        Save Map
+      </button>
+    </div>
+    <div class="section-content">
+      <table id="report-table">
+        <thead>
+          <tr>
+            <th>Report ID</th>
+            <th>Report Name</th>
+            <th>Report Group</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="mapping-actions">
+        <button type="button" class="button blue" onclick="addRow()">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ------------------------
+    // Secret Manager Logic
+    // ------------------------
+    function validateSecretForm() {
+      const pid = document.getElementById('secretprojectid').value.trim();
+      const pname = document.getElementById('secretprojectname').value.trim();
+      const ver = document.getElementById('secretversion').value.trim();
+      const nsactid = document.getElementById('nsaccountid').value.trim();
+      document.getElementById('save-secret-button').disabled = !(pid && pname && ver && nsactid);
+    }
+
+    function saveSecrets() {
+      const pid = document.getElementById('secretprojectid').value.trim();
+      const pname = document.getElementById('secretprojectname').value.trim();
+      const ver = document.getElementById('secretversion').value.trim();
+      const nsactid = document.getElementById('nsaccountid').value.trim();
+
+      if (!pid || !pname || !ver || !nsactid) {
+        alert('Please fill all Secret Manager fields before saving.');
+        return;
+      }
+
+      const secrets = { secretprojectid: pid, secretprojectname: pname, secretversion: ver, nsaccountid: nsactid };
+      console.log("Saving Secrets (client):", JSON.stringify(secrets));
+
+      google.script.run
+        .withSuccessHandler(function(response) {
+          if (response && response.success) {
+            alert("Secrets saved successfully!");
+          } else {
+            alert("Failed to save secrets. " + (response ? response.message : ""));
+          }
+        })
+        .withFailureHandler(function(err) {
+          alert("Error saving secrets: " + JSON.stringify(err));
+        })
+        .saveSecretsToProperties(secrets);
+    }
+
+    // ------------------------
+    // Report Mapping Logic
+    // ------------------------
+    function addRow() {
+      addRowWithData("", "", "");
+    }
+
+    // Helper for adding a row with optional pre-filled values
+    function addRowWithData(reportID, reportName, groupName) {
+      const tableBody = document.getElementById("report-table").querySelector("tbody");
+      const newRow = tableBody.insertRow();
+      newRow.innerHTML = `
+        <td contenteditable="true" oninput="validateMappingRows()">${reportID || ""}</td>
+        <td contenteditable="true" oninput="validateMappingRows()">${reportName || ""}</td>
+        <td contenteditable="true" oninput="validateMappingRows()">${groupName || ""}</td>
+        <td>
+          <div class="action-cell">
+            <button type="button" class="button red" onclick="removeRow(this)">Remove</button>
+            <button type="button" class="button grey" onclick="testRow(this)">Test</button>
+          </div>
+        </td>`;
+      validateMappingRows();
+    }
+
+    function removeRow(button) {
+      const row = button.closest("tr");
+      row.parentNode.removeChild(row);
+      validateMappingRows();
+    }
+
+    function validateMappingRows() {
+      const tableBody = document.getElementById("report-table").querySelector("tbody");
+      const rows = tableBody.rows;
+      let hasValidRow = false;
+      for (let row of rows) {
+        const reportID = row.cells[0].innerText.trim();
+        const reportName = row.cells[1].innerText.trim();
+        if (reportID && reportName) { hasValidRow = true; break; }
+      }
+      document.getElementById('save-map-button').disabled = !hasValidRow;
+    }
+
+    function testRow(button) {
+      const row = button.closest("tr");
+      const reportID = row.cells[0].innerText.trim();
+      const reportName = row.cells[1].innerText.trim();
+      const reportGroup = row.cells[2].innerText.trim();
+      console.log("Test triggered for row:", { reportID, reportName, reportGroup });
+      alert(`Test function triggered!\nID: ${reportID}\nName: ${reportName}\nGroup: ${reportGroup}`);
+    }
+
+    function saveMapping() {
+      const tableBody = document.getElementById("report-table").querySelector("tbody");
+      const rows = tableBody.rows;
+      const mapping = [];
+      let foundValidRow = false;
+      for (let i = 0; i < rows.length; i++) {
+        const row = rows[i];
+        const reportid = row.cells[0].innerText.trim();
+        const reportname = row.cells[1].innerText.trim();
+        const groupname = row.cells[2].innerText.trim();
+        if (!reportid && !reportname) { continue; }
+        if (!reportid || !reportname) {
+          alert(`Row #${i + 1} is missing required fields (Report ID or Report Name). Please correct it before saving.`);
+          return;
+        }
+        mapping.push({ reportid, reportname, groupname });
+        foundValidRow = true;
+      }
+      if (!foundValidRow) {
+        alert("No valid rows found. Please fill out Report ID and Report Name on at least one row.");
+        return;
+      }
+      console.log("Saving Mapping (client):", JSON.stringify(mapping));
+      google.script.run
+        .withSuccessHandler(function(response) {
+          if (response && response.success) {
+            alert("Mapping saved successfully!");
+          } else {
+            alert("Failed to save mapping. " + (response ? response.message : ""));
+          }
+        })
+        .withFailureHandler(function(err) {
+          alert("Error saving mapping: " + JSON.stringify(err));
+        })
+        .saveMappingToProperties(mapping);
+    }
+  </script>
+</body>
+</html>
