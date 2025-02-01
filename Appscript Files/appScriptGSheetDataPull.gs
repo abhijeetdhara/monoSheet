@@ -298,6 +298,18 @@ const getAccessTokenCached = () => {
  */
 const getSecret = () => {
     try {
+        /*
+        Secret accessed from Google secret Manager
+        Secret JSON template
+        {
+          "pagestoload":"5",    //min 0, max-concurrent request limit
+          "metadatascriptid":"NSMETADATASCRIPTID","metadatadeployid":"NSMETADATASCRIPTDEPLOYID","reportscriptid":"NSREPORTSCRIPTID",
+          "reportdeployid":"NSREPORTSCRIPTDEPLOYID",
+          ""kid":"OAUTH2_CERTIFICATE_ID",
+          "clientid":"CLIENT_ID",
+          "privatekey":"PRIVATE_CERTIFICATE"
+        }
+        */
         const projectId = secretsDataObj.secretprojectid;
         const secretName = secretsDataObj.secretprojectname;
         const version = secretsDataObj.secretversion;
@@ -343,19 +355,6 @@ const getSecret = () => {
  */
 const getClientAssertion = (securedToken) => {
     try {
-        /*
-        Secret accessed from Google secret Manager
-        Secret JSON template
-        {
-          "pagestoload":"5",    //min 0, max-concurrent request limit
-          "metadatascriptid":"NSMETADATASCRIPTID","metadatadeployid":"NSMETADATASCRIPTDEPLOYID","reportscriptid":"NSREPORTSCRIPTID",
-          "reportdeployid":"NSREPORTSCRIPTDEPLOYID",
-          ""kid":"OAUTH2_CERTIFICATE_ID",
-          "clientid":"CLIENT_ID",
-          "privatekey":"PRIVATE_CERTIFICATE"
-        }
-        */
-
         //Using the RSA-PSS certificate
         const jwtHeader = {
             alg: 'PS256', // Using PS256, which is one of the algorithms NetSuite supports for client credentials
