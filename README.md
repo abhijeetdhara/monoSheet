@@ -89,7 +89,8 @@ This repository provides a comprehensive solution to integrate NetSuite with Goo
 1. Open the Script Editor (`Extensions > Apps Script`) in your Google Sheet.
 2. Copy and paste the contents of `appScriptGSheetDataPull.gs` into the script editor.
 3. Add `nsUiConfig.html` as a new HTML file in the script editor.
-4. Save and close the script editor.
+4. Add two parameters - 'menuData' & 'menuData' to the script properties.
+5. Save and close the script editor.
 
 ---
 
@@ -180,3 +181,5 @@ Ensure your Google Secret Manager stores the NetSuite configuration in the follo
     *   **Added support for Report grouping - allows users to group multiple reports so that they can be loaded in a single click**.
     *   **Added UI config page to setup your integration and report mappings**.
     *   **Added technical docs to each folders**.
+*   [02/02/2025]
+    *   **Added the missing script properties for the appscript**.
