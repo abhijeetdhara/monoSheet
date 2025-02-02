@@ -52,6 +52,7 @@ This Google Apps Script facilitates the integration between Google Sheets and Ne
 1. **Add the Script to Google Sheets**:
 
    - Open the Script Editor (`Extensions > Apps Script`).
+   - Create two script properties/parameters - `nsConfig` & `menuData`
    - Copy and paste the provided script code.
      ![image](https://github.com/user-attachments/assets/c102885c-bf04-44f9-ba28-86c179c0fe9f)
 
