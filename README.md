@@ -152,7 +152,7 @@ Ensure your Google Secret Manager stores the NetSuite configuration in the follo
 
 ```json
 {
-  "pagestoload": "5",    // Minimum-0, Maximum-max concurrency limit of your NS account
+  "pagestoload": "5",    // Minimum-0, Maximum-anything that restlet can handle within governance, but do note higher number = higher API response time
   "metadatascriptid": "NSMETADATASCRIPTID",
   "metadatadeployid": "NSMETADATASCRIPTDEPLOYID",
   "reportscriptid": "NSREPORTSCRIPTID",
