@@ -89,7 +89,7 @@ This repository provides a comprehensive solution to integrate NetSuite with Goo
 1. Open the Script Editor (`Extensions > Apps Script`) in your Google Sheet.
 2. Copy and paste the contents of `appScriptGSheetDataPull.gs` into the script editor.
 3. Add `nsUiConfig.html` as a new HTML file in the script editor.
-4. Add two parameters - 'menuData' & 'menuData' to the script properties.
+4. Add two parameters - 'menuData' & 'nsConfig' to the script properties.
 5. Save and close the script editor.
 
 ---
