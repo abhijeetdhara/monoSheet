@@ -1,14 +1,14 @@
-# easySheet [Public Beta]
+# monoSheet [Public Beta]
 
 <div align="center">
-<img src= "https://github.com/user-attachments/assets/1c074b01-fd6c-4858-ae1d-fcb513240cb7" width="15%" alt="easySheet"/>
+<img src= "https://github.com/user-attachments/assets/27e04c47-259a-4531-82ca-009232467a9d" width="15%" alt="monoSheet"/>
 </div>
 
 ---
 
 ### Overview
 
-easySheet provides a comprehensive solution to integrate NetSuite with Google Sheets using Google Apps Script and NetSuite RESTlet scripts. It enables users to fetch datasets and saved searches from NetSuite and populate them directly into Google Sheets for analysis and reporting. The solution leverages OAuth 2.0 authentication with JWT tokens for secure data transfer and includes caching mechanisms for optimized performance. A user-friendly HTML interface is provided for easy configuration of NetSuite credentials and report mappings.
+monoSheet provides a comprehensive solution to integrate NetSuite with Google Sheets using Google Apps Script and NetSuite RESTlet scripts. It enables users to fetch datasets and saved searches from NetSuite and populate them directly into Google Sheets for analysis and reporting. The solution leverages OAuth 2.0 authentication with JWT tokens for secure data transfer and includes caching mechanisms for optimized performance. A user-friendly HTML interface is provided for easy configuration of NetSuite credentials and report mappings.
 
 ---
 
@@ -35,7 +35,7 @@ easySheet provides a comprehensive solution to integrate NetSuite with Google Sh
 
 ### Previous Version Demo
 
-[![Watch the video](https://github.com/user-attachments/assets/482da6c3-726c-4a6f-a0eb-40e63117ebf3)](https://youtu.be/4YsDt7Pbk20)
+[![Watch the video](https://github.com/user-attachments/assets/15bbafec-39fa-43c1-8717-2220588131e4)](https://youtu.be/4YsDt7Pbk20)
 
 ---
 
