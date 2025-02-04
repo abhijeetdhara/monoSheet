@@ -10,21 +10,28 @@ This repository provides a comprehensive solution to integrate NetSuite with Goo
 
 ### Table of Contents
 
-1. [Prerequisites](#prerequisites)
-2. [Repository Structure](#repository-structure)
-3. [Setup and Configuration](#setup-and-configuration)
+1. [Previous Version Demo](#previous-version-demo)
+2. [Prerequisites](#prerequisites)
+3. [Repository Structure](#repository-structure)
+4. [Setup and Configuration](#setup-and-configuration)
    - [NetSuite Setup](#netsuite-setup)
    - [Google Cloud Setup](#google-cloud-setup)
    - [Google Sheets Setup](#google-sheets-setup)
-4. [Key Components](#key-components)
+5. [Key Components](#key-components)
    - [Google Apps Script](#google-apps-script)
    - [NetSuite RESTlet Scripts](#netsuite-restlet-scripts)
    - [HTML Interface](#html-interface)
-5. [OAuth Scopes](#oauth-scopes)
-6. [Error Handling](#error-handling)
-7. [Google Secret Manager Configuration](#google-secret-manager-configuration)
-8. [Third-Party Libraries](#third-party-libraries)
-9. [Key Changes](#key-changes)
+6. [OAuth Scopes](#oauth-scopes)
+7. [Error Handling](#error-handling)
+8. [Google Secret Manager Configuration](#google-secret-manager-configuration)
+9. [Third-Party Libraries](#third-party-libraries)
+10. [Key Changes](#key-changes)
+
+---
+
+### Previous Version Demo
+
+[![Watch the video](https://img.youtube.com/vi/4YsDt7Pbk20/maxresdefault.jpg)](https://youtu.be/4YsDt7Pbk20)
 
 ---
 
