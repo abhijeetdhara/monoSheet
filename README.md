@@ -1,10 +1,14 @@
-# Gsheet 🔗 NetSuite Integration [Public Beta]
+# easySheet [Public Beta]
+
+<div align="center">
+<img src= "https://github.com/user-attachments/assets/909a90aa-d947-4ff5-bc73-4fe54bc72037" width="10%" alt="easySheet"/>
+</div>
 
 ---
 
 ### Overview
 
-This repository provides a comprehensive solution to integrate NetSuite with Google Sheets using Google Apps Script and NetSuite RESTlet scripts. It enables users to fetch datasets and saved searches from NetSuite and populate them directly into Google Sheets for analysis and reporting. The solution leverages OAuth 2.0 authentication with JWT tokens for secure data transfer and includes caching mechanisms for optimized performance. A user-friendly HTML interface is provided for easy configuration of NetSuite credentials and report mappings.
+easySheet provides a comprehensive solution to integrate NetSuite with Google Sheets using Google Apps Script and NetSuite RESTlet scripts. It enables users to fetch datasets and saved searches from NetSuite and populate them directly into Google Sheets for analysis and reporting. The solution leverages OAuth 2.0 authentication with JWT tokens for secure data transfer and includes caching mechanisms for optimized performance. A user-friendly HTML interface is provided for easy configuration of NetSuite credentials and report mappings.
 
 ---
 
