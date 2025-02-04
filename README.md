@@ -190,3 +190,5 @@ Ensure your Google Secret Manager stores the NetSuite configuration in the follo
     *   **Added technical docs to each folders**.
 *   [02/02/2025]
     *   **Added the missing script properties for the appscript**.
+*   [04/02/2025]
+    *   **Added the previous version demo**.
