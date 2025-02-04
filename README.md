@@ -1,7 +1,7 @@
 # easySheet [Public Beta]
 
 <div align="center">
-<img src= "https://github.com/user-attachments/assets/909a90aa-d947-4ff5-bc73-4fe54bc72037" width="10%" alt="easySheet"/>
+<img src= "https://github.com/user-attachments/assets/1e5f7705-1fde-4ef6-86eb-f7e5ceedb8f1" width="60%" alt="easySheet"/>
 </div>
 
 ---
