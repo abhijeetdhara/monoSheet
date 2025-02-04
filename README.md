@@ -1,7 +1,7 @@
 # easySheet [Public Beta]
 
 <div align="center">
-<img src= "https://github.com/user-attachments/assets/1e5f7705-1fde-4ef6-86eb-f7e5ceedb8f1" width="60%" alt="easySheet"/>
+<img src= "https://github.com/user-attachments/assets/1c074b01-fd6c-4858-ae1d-fcb513240cb7" width="15%" alt="easySheet"/>
 </div>
 
 ---
@@ -35,7 +35,7 @@ easySheet provides a comprehensive solution to integrate NetSuite with Google Sh
 
 ### Previous Version Demo
 
-[![Watch the video](https://img.youtube.com/vi/4YsDt7Pbk20/maxresdefault.jpg)](https://youtu.be/4YsDt7Pbk20)
+[![Watch the video](https://github.com/user-attachments/assets/482da6c3-726c-4a6f-a0eb-40e63117ebf3)](https://youtu.be/4YsDt7Pbk20)
 
 ---
 
