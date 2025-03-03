@@ -22,10 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-// Variables required to generate the JWT token using the library file
-let navigator = {};
-let window = {};
-
 // Global variables
 let columnCount;
 let totalRows;
@@ -377,8 +373,7 @@ const getClientAssertion = (securedToken) => {
         const secret = securedToken.privatekey;
 
         // Sign the JWT with the PS256 algorithm (algorithm must match what is specified in JWT header).
-        // The JWT is signed using the jsrsasign lib (KJUR)
-        const signedJWT = KJUR.jws.JWS.sign('PS256', stringifiedJwtHeader, stringifiedJwtPayload, secret);
+        const signedJWT = signWithRSAPSS('PS256', stringifiedJwtHeader, stringifiedJwtPayload, secret);
         return signedJWT;
     } catch (e) {
         Logger.log(`Error in getClientAssertion(): ${JSON.stringify(e)}`);
