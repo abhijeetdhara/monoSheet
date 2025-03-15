@@ -16,7 +16,7 @@ Recently I got to know about the policies enforced by my employer about the IP, 
 
 1. "Me" filter for saved search filter baked into the integration.
 2. Support for OAuth 1.0a
-3. Support for OAuth 2.0 
+3. Support for OAuth 2.0 [Algos other than RSA]
 
 ---
 
