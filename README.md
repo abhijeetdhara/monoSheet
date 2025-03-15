@@ -1,3 +1,10 @@
+# Under major changes 
+### Recently I got to know about the policies enforced by my employer about the IP, techincally I do not own the IP of this project although I'd still be the author of this project.
+### I got some good insights on the security side due to employer's involvement into monoSheet.
+### Please note that this still remains to be an open source project under the MIT license, as to respect the IP ownership I'll update the license agreement in a few days.
+### There are few other features I'd like to add before marking the project as PROD ready.
+
+
 # monoSheet [Public Beta]
 
 <div align="center">
