@@ -1,4 +1,4 @@
-# monoSheet [Public Beta]
+# monoSheet - F [Public Beta]
 
 <div align="center">
 <img src= "https://github.com/user-attachments/assets/27e04c47-259a-4531-82ca-009232467a9d" width="15%" alt="monoSheet"/>
@@ -6,17 +6,17 @@
 
 ---
 
-# Under major changes 
-Recently I got to know about the policies enforced by my employer about the IP, techincally I do not own the IP of this project although I'd still be the author of this project. I got some good insights on the security side due to employer's involvement into monoSheet. There are few other features I'd like to add before marking the project as PROD ready.
-### Please note that this still remains to be an open source project under the MIT license, as to respect the IP ownership I'll update the license agreement in a few days.
+# new Branch?
 
----
-
-# Future updates in pipeline
-
-1. "Me" filter for saved search filter baked into the integration.
-2. Support for OAuth 1.0a
-3. Support for OAuth 2.0 [Algos other than RSA]
+1. This is to add the functionality of running financials within Sheets.
+      - Income statement
+      - Balance Sheet [this will be challenging]
+      - Cashflow statement
+      - Trial Balance
+2. This will be a fairly simple implementation, restricted to primary book and option for running detailed or summary report.
+3. Project will commence during Q2.
+4. This project will retain the previous features of running dataset and saved searches.
+5. Want to be contribute to the project? please do reach out.
 
 ---
 
