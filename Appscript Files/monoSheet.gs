@@ -23,6 +23,8 @@ SOFTWARE.
 */
 
 // Global variables
+let navigator = {};
+let window = {};
 let columnCount;
 let totalRows;
 let menuStructure;
@@ -373,7 +375,7 @@ const getClientAssertion = (securedToken) => {
         const secret = securedToken.privatekey;
 
         // Sign the JWT with the PS256 algorithm (algorithm must match what is specified in JWT header).
-        const signedJWT = signWithRSAPSS('PS256', stringifiedJwtHeader, stringifiedJwtPayload, secret);
+        const signedJWT = KJUR.jws.JWS.sign('PS256', stringifiedJwtHeader, stringifiedJwtPayload, secret);
         return signedJWT;
     } catch (e) {
         Logger.log(`Error in getClientAssertion(): ${JSON.stringify(e)}`);
