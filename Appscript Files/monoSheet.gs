@@ -305,7 +305,8 @@ const getSecret = () => {
           "pagestoload":"5",    //min 0, max-concurrent request limit
           "metadatascriptid":"NSMETADATASCRIPTID","metadatadeployid":"NSMETADATASCRIPTDEPLOYID","reportscriptid":"NSREPORTSCRIPTID",
           "reportdeployid":"NSREPORTSCRIPTDEPLOYID",
-          ""kid":"OAUTH2_CERTIFICATE_ID",
+          "kid":"OAUTH2_CERTIFICATE_ID",
+          "alg":"OAUTH2_JWT_SIGN_ALGO",
           "clientid":"CLIENT_ID",
           "privatekey":"PRIVATE_CERTIFICATE"
         }
@@ -357,7 +358,7 @@ const getClientAssertion = (securedToken) => {
     try {
         //Using the RSA-PSS certificate
         const jwtHeader = {
-            alg: 'PS256', // Using PS256, which is one of the algorithms NetSuite supports for client credentials
+            alg: securedToken.alg, // Using PS256, which is one of the algorithms NetSuite supports for client credentials
             typ: 'JWT',
             kid: securedToken.kid // Certificate Id on the client credentials mapping
         };
@@ -377,7 +378,7 @@ const getClientAssertion = (securedToken) => {
         const secret = securedToken.privatekey;
 
         // Sign the JWT with the PS256 algorithm (algorithm must match what is specified in JWT header).
-        const signedJWT = KJUR.jws.JWS.sign('PS256', stringifiedJwtHeader, stringifiedJwtPayload, secret);
+        const signedJWT = KJUR.jws.JWS.sign(securedToken.alg, stringifiedJwtHeader, stringifiedJwtPayload, secret);
         return signedJWT;
     } catch (e) {
         Logger.log(`Error in getClientAssertion(): ${JSON.stringify(e)}`);
