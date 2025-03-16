@@ -358,7 +358,7 @@ const getClientAssertion = (securedToken) => {
     try {
         //Using the RSA-PSS certificate
         const jwtHeader = {
-            alg: securedToken.alg, // Using PS256, which is one of the algorithms NetSuite supports for client credentials
+            alg: securedToken.alg, // lib supports RSA-PSS [PS256, PS384, PS512], EC [ES256, ES384]
             typ: 'JWT',
             kid: securedToken.kid // Certificate Id on the client credentials mapping
         };
