@@ -215,9 +215,9 @@ const main = async (id) => {
         //Generate the access token for the API auth
         //using cache instead of calling functions on every report run
         const { token: accessToken, secretObj } = getAccessTokenCached();
-        /*const secretObj = getSecret();
+        const secretObj = getSecret();
         const clientAssertion = getClientAssertion(secretObj);
-        const accessToken = getAccessToken(clientAssertion);*/
+        const accessToken = getAccessToken(clientAssertion);
 
         if (id.indexOf("customsearch") === -1 && id.indexOf("custdataset") === -1) {
             //run all the searches or datasets individually within the group
